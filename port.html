@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="icon" href="icon.png">
+
+<style>
+    code {
+        font-family: Consolas, "courier new";
+        color: crimson;
+        padding: 2px;
+        font-size: 130%;
+    }
+</style>
+
+<head>
+    <title>Port Config Tool</title>
+    <style>
+        * {
+            font: 17px Calibri;
+        }
+
+        table {
+            width: 70%;
+        }
+
+        table,
+        th,
+        td {
+            border: solid 1px #DDD;
+            border-collapse: collapse;
+            padding: 2px 3px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body onload="init()">
+
+    <!-- Navbar -->
+    <div class="w3-top">
+        <div class="w3-bar w3-black w3-card">
+            <a class="w3-bar-item w3-button w3-padding-large w3-hide-medium w3-hide-large w3-right"
+                href="javascript:void(0)" onclick="myFunction()" title="Toggle Navigation Menu"><i
+                    class="fa fa-bars"></i></a>
+            <a href="index.html" class="w3-bar-item w3-button w3-padding-large">HOME</a>
+            <a href="port.html" class="w3-bar-item w3-button w3-padding-large">PORT</a>
+            <a href="dio.html" class="w3-bar-item w3-button w3-padding-large w3-hide-small">DIO</a>
+            <a href="#code" class="w3-bar-item w3-button w3-padding-large w3-hide-small">SOURCE CODE</a>
+            <a href="#developer" class="w3-bar-item w3-button w3-padding-large w3-hide-small">DEVELOPER</a>
+        </div>
+    </div>
+
+
+    <!-- The Port Section -->
+    <div class="w3-container w3-content w3-center w3-padding-32" style="max-width:800px" id="port">
+        <div style="height:50px; width:100%; clear:both;"></div>
+        <h2 class="w3-wide">PORT DRIVER</h2>
+        <p class="w3-opacity"><i>Configuration of PORT driver</i></p>
+
+    </div>
+
+    <div style="text-align: center;"><code>Pins</code></div>
+    <br>
+    <button class="w3-button w3-black w3-section w3-left buttonload" id="addPin" onclick="addPin()"
+        style="margin-left:30px;">Add new
+        Pin</button>
+    <br><br><br><br>
+    <div style="padding-left: 30px;">
+        <div id="pins"></div>
+    </div>
+    <br><br>
+    <hr>
+
+    <div style="text-align: center;"><code>Modes</code></div>
+    <br>
+    <button class="w3-button w3-black w3-section w3-left buttonload" id="addMode" onclick="addMode()"
+        style="margin-left:30px;">Add new
+        Mode</button>
+    <br><br><br><br>
+
+    <div style="padding-left: 30px;">
+        <div id="modes"></div>
+    </div>
+    <br><br>
+
+    <hr>
+
+    <div style="text-align: center;"><code>Optional APIs</code></div>
+
+
+
+
+    <div style="padding-left: 30px;">
+        <div>
+            <input type="checkbox" id="error_enable" name="error_enable">
+            <label for="error_enable">Enable Error Detection API</label>
+        </div>
+
+        <div>
+            <input type="checkbox" id="set_dir_enable" name="set_dir_enable">
+            <label for="set_dir_enable">Enable SetPinDirection API</label>
+        </div>
+
+        <div>
+            <input type="checkbox" id="version_enable" name="version_enable">
+            <label for="version_enable">Version Info</label>
+        </div>
+
+
+    </div>
+
+    <hr>
+
+    <div style="text-align: center;"><button class="w3-button w3-green w3-section w3-center buttonload" id="submit"
+            onclick="submit()">Submit</button></div>
+    <div style="text-align: center;"><button class="w3-button w3-green w3-section w3-center buttonload" id="download"
+            onclick="download()">Download Files</button></div>
+
+    <p id='output'></p>
+
+    <hr>
+
+    <div style="text-align: center;"><code>Port_Cfg.h</code></div>
+    <div style="text-align: center;">
+        <pre>
+    <textarea rows="10" cols="100" readonly wrap="off"
+        style="font-family: 'Courier New', monospace; resize: none; background-color: lightgray; padding: 20px;" id = "Cfg"> </textarea>
+    </pre>
+    </div>
+    <hr>
+
+    <div style="text-align: center;"><code>Port_PBcfg.c</code></div>
+    <div style="text-align: center;">
+        <pre>
+    <textarea rows="10" cols="100" readonly wrap="off"
+        style="font-family: 'Courier New', monospace; resize: none; background-color: lightgray; padding: 20px;" id = "PBcfg"> </textarea>
+    </pre>
+    </div>
+
+
+
+
+</body>
+
+<script src="port.js"></script>
+
+</html>
