@@ -578,21 +578,31 @@ function submit() {
 }
 
 function download() {
-    var filename = "hello.h";
-    var text = "This is the content of my file :)";
+    submit();
+    download_h();
+    download_c();
+}
 
+
+function download_h() {
     var element = document.createElement('a');
-    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
-    element.setAttribute('download', filename);
-
+    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(cfg_code));
+    element.setAttribute('download', 'Port_Cfg.h');
     element.style.display = 'none';
     document.body.appendChild(element);
-
     element.click();
-
     document.body.removeChild(element);
 }
 
+function download_c() {
+    var element = document.createElement('a');
+    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(PBcfg_code));
+    element.setAttribute('download', 'Port_PBcfg.c');
+    element.style.display = 'none';
+    document.body.appendChild(element);
+    element.click();
+    document.body.removeChild(element);
+}
 
 
 
