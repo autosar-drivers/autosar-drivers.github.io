@@ -8,7 +8,7 @@ var modes_values = new Array();
 var optionalAPIs = new Array();
 
 pinHeads = ['', 'Port', 'Pin', 'Name', 'Mode Name', 'Mode Changeable', 'Direction', 'Direction Changeable', 'Initial Value'];
-modeHeads = ['', 'Name', 'Pull Up', 'Pull Down', 'Open Drain', 'GPIO Enable', 'Digital Enable', 'Alternate Function'];
+modeHeads = ['', 'Name', 'Pull Up', 'Pull Down', 'GPIO Enable', 'Open Drain', 'Digital Enable', 'Slew Rate', 'Alternate Function'];
 
 function init() {
     createPinsTable();
@@ -82,7 +82,7 @@ function addPin() {
             button.setAttribute('onclick', 'removePin(this)');
             td.appendChild(button);
         }
-        else if (c==1) {
+        else if (c == 1) {
             var element = document.createElement("select");
             var option1 = document.createElement("option");
             var option2 = document.createElement("option");
@@ -99,12 +99,12 @@ function addPin() {
             option5.innerHTML = "Port E";
             option6.innerHTML = "Port F";
 
-            option1.value = "PORT_PORTA";
-            option2.value = "PORT_PORTB";
-            option3.value = "PORT_PORTC";
-            option4.value = "PORT_PORTD";
-            option5.value = "PORT_PORTE";
-            option6.value = "PORT_PORTF";
+            option1.value = "PORT_PIN_PORT_A";
+            option2.value = "PORT_PIN_PORT_B";
+            option3.value = "PORT_PIN_PORT_C";
+            option4.value = "PORT_PIN_PORT_D";
+            option5.value = "PORT_PIN_PORT_E";
+            option6.value = "PORT_PIN_PORT_F";
 
             element.add(option1, null);
             element.add(option2, null);
@@ -114,11 +114,11 @@ function addPin() {
             element.add(option6, null);
 
             td.appendChild(element);
-        
+
         }
 
-        else if (c==2) {
-            
+        else if (c == 2) {
+
             var element = document.createElement("select");
             var option1 = document.createElement("option");
             var option2 = document.createElement("option");
@@ -138,14 +138,14 @@ function addPin() {
             option7.innerHTML = "Pin 6";
             option8.innerHTML = "Pin 7";
 
-            option1.value = "PORT_PIN0";
-            option2.value = "PORT_PIN1";
-            option3.value = "PORT_PIN2";
-            option4.value = "PORT_PIN3";
-            option5.value = "PORT_PIN4";
-            option6.value = "PORT_PIN5";
-            option7.value = "PORT_PIN6";
-            option8.value = "PORT_PIN7";
+            option1.value = "PORT_PIN_0";
+            option2.value = "PORT_PIN_1";
+            option3.value = "PORT_PIN_2";
+            option4.value = "PORT_PIN_3";
+            option5.value = "PORT_PIN_4";
+            option6.value = "PORT_PIN_5";
+            option7.value = "PORT_PIN_6";
+            option8.value = "PORT_PIN_7";
 
             element.add(option1, null);
             element.add(option2, null);
@@ -157,28 +157,28 @@ function addPin() {
             element.add(option8, null);
 
             td.appendChild(element);
-        
+
         }
 
-        else  if (c== 3) {
+        else if (c == 3) {
             var element = document.createElement('input');
             element.setAttribute('type', 'text');
             element.setAttribute('value', '');
             td.appendChild(element);
         }
 
-        else  if (c== 4) {
+        else if (c == 4) {
             var element = document.createElement('input');
             element.setAttribute('type', 'text');
             element.setAttribute('value', '');
             td.appendChild(element);
         }
-        else if (c==5 || c==7) {
+        else if (c == 5 || c == 7) {
             var element = createTrueFalseSelection();
             td.appendChild(element);
         }
 
-        else if (c==6) {
+        else if (c == 6) {
             var element = document.createElement("select");
 
             var option1 = document.createElement("option");
@@ -194,10 +194,10 @@ function addPin() {
             element.add(option2, null);
 
             td.appendChild(element);
-        
+
         }
 
-        else if (c==8) {
+        else if (c == 8) {
             var element = document.createElement("select");
 
             var option1 = document.createElement("option");
@@ -206,8 +206,8 @@ function addPin() {
             option1.innerHTML = "High";
             option2.innerHTML = "Low";
 
-            option1.value = "STD_HIGH";
-            option2.value = "STD_LOW";
+            option1.value = "PORT_PIN_LEVEL_HIGH";
+            option2.value = "PORT_PIN_LEVEL_LOW";
 
             element.add(option1, null);
             element.add(option2, null);
@@ -238,7 +238,7 @@ function addMode() {
             element.setAttribute('value', '');
             td.appendChild(element);
         }
-        else if (c==7){ 
+        else if (c == 8) {
             var element = document.createElement("select");
             var aternates = [
                 "ALT_DISABLED",
@@ -371,7 +371,7 @@ function addMode() {
                 "ALT_CAN0Tx",
                 "ALT_M0FAULT0",
                 "ALT_USB0EPEN"
-                        
+
             ];
             var options = [
                 document.createElement("option"),
@@ -503,9 +503,9 @@ function addMode() {
                 document.createElement("option"),
                 document.createElement("option"),
                 document.createElement("option"),
-                document.createElement("option"),                
+                document.createElement("option"),
             ]
-            for (var i=0; i<130; i++) {
+            for (var i = 0; i < 130; i++) {
                 options[i].innerHTML = aternates[i];
                 element.add(options[i], null);
             }
@@ -513,7 +513,7 @@ function addMode() {
         }
         else {
             var element = createTrueFalseSelection();
-            td.appendChild(element);        
+            td.appendChild(element);
         }
 
     }
@@ -527,7 +527,7 @@ function removePin(oButton) {
 
 function removeMode(oButton) {
     var empTab = document.getElementById('modesTable');
-    empTab.deleteRow(oButton.parentNode.parentNode.rowIndex); 
+    empTab.deleteRow(oButton.parentNode.parentNode.rowIndex);
 }
 
 function submit() {
@@ -536,23 +536,34 @@ function submit() {
     var error_enable = document.getElementById('error_enable');
     var set_dir_enable = document.getElementById('set_dir_enable');
     var version_enable = document.getElementById('version_enable');
-    pins_values = new Array();
-    modes_values = new Array();
-    optionalAPIs = new Array();
+    pins_values = [];
+    modes_values = [];
+    optionalAPIs = [];
     for (row = 1; row < pinsTable.rows.length - 1; row++) {
         for (c = 1; c < pinsTable.rows[row].cells.length; c++) {
             var element = pinsTable.rows.item(row).cells[c];
-            console.log(element.childNodes[0].value);
             pins_values.push(element.childNodes[0].value);
+            if (element.childNodes[0].value == "") {
+                alert("Pin name and Mode name cannot be embty!");
+                pins_values = [];
+                break;
+            }
         }
     }
     for (row = 1; row < modesTable.rows.length - 1; row++) {
         for (c = 1; c < modesTable.rows[row].cells.length; c++) {
             var element = modesTable.rows.item(row).cells[c];
-            console.log(element.childNodes[0].value);
             modes_values.push(element.childNodes[0].value);
+            if (element.childNodes[0].value == "" && pins_values.length != 0) {
+                alert("Pin name and Mode name cannot be embty!");
+                pins_values = [];
+                modes_values = [];
+                break
+            }
+
         }
     }
+
     if (error_enable.checked == true) {
         optionalAPIs.push("STD_ON");
     }
@@ -571,20 +582,17 @@ function submit() {
     else {
         optionalAPIs.push("STD_OFF");
     }
+
     cfg_code = generate_cfg_code();
     PBcfg_code = generate_PBcfg_code();
+
     document.getElementById("Cfg").textContent = cfg_code;
     document.getElementById("PBcfg").textContent = PBcfg_code;
 }
 
-function download() {
-    submit();
-    download_h();
-    download_c();
-}
-
 
 function download_h() {
+    submit();
     var element = document.createElement('a');
     element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(cfg_code));
     element.setAttribute('download', 'Port_Cfg.h');
@@ -595,6 +603,7 @@ function download_h() {
 }
 
 function download_c() {
+    submit();
     var element = document.createElement('a');
     element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(PBcfg_code));
     element.setAttribute('download', 'Port_PBcfg.c');
@@ -606,16 +615,46 @@ function download_c() {
 
 
 
+function getDate() {
+    var d = new Date();
+    var day = d.getUTCDate();
+    var month = d.getMonth();
+    var year = d.getFullYear();
+
+    var date = "";
+    var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    date = date + months[month];
+    if (day < 10) {
+        date = date + " 0" + day + ", " + year;
+    }
+    else {
+        date = date + " " + day + ", " + year;
+    }
+    return date;
 
 
+}
+
+
+/*https://autosar-drivers.github.io/ */
 function generate_cfg_code() {
+    var date = getDate();
     var code = ""
+    code = code + "\n           /**********************************************************/";
+    code = code + "\n           /* -> This file is generated by online Configuration Tool */";
+    code = code + "\n           /* -> The Configuration Tool is developed by:             */";
+    code = code + "\n           /*    Ahmed Hassan                                        */";
+    code = code + "\n           /* -> The Configuration Tool can be found on this link:   */";
+    code = code + "\n           /*    autosar-drivers.github.io                           */";
+    code = code + "\n           /**********************************************************/";
+    code = code + "\n";
     code = code + "\n/********************************************************************************/";
     code = code + "\n/* Module:      Port                                                            */";
     code = code + "\n/* File Name:   Port_Cfg.h                                                      */";
     code = code + "\n/* Description: Pre-Compile Configuration Header file for TM4C123GH6PM          */";
     code = code + "\n/*              Microcontroller - Port Driver.                                  */";
     code = code + "\n/* Author:      Ahmed Hassan                                                    */";
+    code = code + "\n/* Created:     " + date + "                                                    */";
     code = code + "\n/********************************************************************************/";
     code = code + "\n";
     code = code + "\n#ifndef PORT_CFG_H";
@@ -647,38 +686,32 @@ function generate_cfg_code() {
     code = code + "\n  #error \"The SW version of Port_Cfg.h does not match the expected version\"";
     code = code + "\n#endif";
     code = code + "\n";
-
-    if (optionalAPIs.length > 0) {
-        code = code + "\n/* Optional APIs */";
-        code = code + "\n";
-        code = code + "\n#define PORT_DEV_ERROR_DETECT      " + optionalAPIs[0];
-        code = code + "\n#define PORT_SET_PIN_DIRECTION_API " + optionalAPIs[1];
-        code = code + "\n#define PORT_VERSION_INFO_API      " + optionalAPIs[2];
-        code = code + "\n";
-    }
+    code = code + "\n/* Optional APIs */";
+    code = code + "\n";
+    code = code + "\n#define PORT_DEV_ERROR_DETECT      " + optionalAPIs[0];
+    code = code + "\n#define PORT_SET_PIN_DIRECTION_API " + optionalAPIs[1];
+    code = code + "\n#define PORT_VERSION_INFO_API      " + optionalAPIs[2];
+    code = code + "\n";
 
     if (modes_values.length > 0) {
         code = code + "\n/* Modes Defines */";
         code = code + "\n";
 
-        var number_of_modes = (modes_values.length) / 7;
+        var number_of_modes = (modes_values.length) / 8;
         code = code + "\n#define PORT_CONFIGURED_MODES " + number_of_modes;
         code = code + "\n";
 
-        for (var i=0; i<number_of_modes; i++) {
-            if (modes_values[i*7] == "") {
-                alert("Mode name can not be embty")
-            }
-            else {
-                code = code + "\n#define PortConf_" + modes_values[i*7] + " " + i;
-                code = code + "\n#define PortConf_" + modes_values[i*7] + "_PULL_UP_ENABLE " + modes_values[1+i*7];
-                code = code + "\n#define PortConf_" + modes_values[i*7] + "_PULL_DOWN_ENABLE " + modes_values[2+i*7];
-                code = code + "\n#define PortConf_" + modes_values[i*7] + "_OPEN_DRAIN_ENABLE " + modes_values[3+i*7];
-                code = code + "\n#define PortConf_" + modes_values[i*7] + "_GPIO_ENABLE " + modes_values[4+i*7];
-                code = code + "\n#define PortConf_" + modes_values[i*7] + "_DIGITAL_ENABLE " + modes_values[5+i*7];
-                code = code + "\n#define PortConf_" + modes_values[i*7] + "_ALT_FUNCTION " + modes_values[6+i*7];
-                code = code + "\n"    
-            }
+        for (var i = 0; i < number_of_modes; i++) {
+            code = code + "\n#define PORT_PIN_MODE_" + modes_values[i * 8] + " " + i;
+            code = code + "\n#define PORT_PIN_MODE_" + modes_values[i * 8] + "_PULL_UP " + modes_values[1 + i * 8];
+            code = code + "\n#define PORT_PIN_MODE_" + modes_values[i * 8] + "_PULL_DOWN " + modes_values[2 + i * 8];
+            code = code + "\n#define PORT_PIN_MODE_" + modes_values[i * 8] + "_GPIO_ENABLE " + modes_values[3 + i * 8];
+            code = code + "\n#define PORT_PIN_MODE_" + modes_values[i * 8] + "_OPEN_DRAIN " + modes_values[4 + i * 8];
+            code = code + "\n#define PORT_PIN_MODE_" + modes_values[i * 8] + "_DIGITAL_ENABLE " + modes_values[5 + i * 8];
+            code = code + "\n#define PORT_PIN_MODE_" + modes_values[i * 8] + "_SLEW_RATE " + modes_values[6 + i * 8];
+            code = code + "\n#define PORT_PIN_MODE_" + modes_values[i * 8] + "_ALT_FUNCTION_NUM " + modes_values[7 + i * 8];
+            code = code + "\n"
+
         }
     }
 
@@ -692,24 +725,17 @@ function generate_cfg_code() {
         code = code + "\n#define PORT_CONFIGURED_PINS " + number_of_pins;
         code = code + "\n";
 
-        for (var i=0; i<number_of_pins; i++) {
-            if (pins_values[2+i*8] == "") {
-                alert("Pin name can not be embty");
-            }
-            else if (pins_values[3+i*8] == ""){
-                alert("Mode name can not be embty");
-            }
-            else {
-                code = code + "\n#define PortConf_" + pins_values[2+i*8] + " " + i;
-                code = code + "\n#define PortConf_" + pins_values[2+i*8] + "_PORT_NUMBER " + pins_values[0+i*8];
-                code = code + "\n#define PortConf_" + pins_values[2+i*8] + "_PIN_NUMBER " + pins_values[1+i*8];
-                code = code + "\n#define PortConf_" + pins_values[2+i*8] + "_MODE " + pins_values[3+i*8];
-                code = code + "\n#define PortConf_" + pins_values[2+i*8] + "_MODE_CHANGEABLE " + pins_values[4+i*8];
-                code = code + "\n#define PortConf_" + pins_values[2+i*8] + "_DIRECTION " + pins_values[5+i*8];
-                code = code + "\n#define PortConf_" + pins_values[2+i*8] + "_DIRECTION_CHANGEABLE " + pins_values[6+i*8];
-                code = code + "\n#define PortConf_" + pins_values[2+i*8] + "_INITIAL_VALUE " + pins_values[7+i*8];
-                code = code + "\n"    
-            }
+        for (var i = 0; i < number_of_pins; i++) {
+            code = code + "\n#define PORT_PIN_" + pins_values[2 + i * 8] + " " + i;
+            code = code + "\n#define PORT_PIN_" + pins_values[2 + i * 8] + "_PORT_NUMBER " + pins_values[0 + i * 8];
+            code = code + "\n#define PORT_PIN_" + pins_values[2 + i * 8] + "_PIN_NUMBER " + pins_values[1 + i * 8];
+            code = code + "\n#define PORT_PIN_" + pins_values[2 + i * 8] + "_INITIAL_MODE PORT_PIN_MODE_" + pins_values[3 + i * 8];
+            code = code + "\n#define PORT_PIN_" + pins_values[2 + i * 8] + "_MODE_CHANGEABLE " + pins_values[4 + i * 8];
+            code = code + "\n#define PORT_PIN_" + pins_values[2 + i * 8] + "_DIRECTION " + pins_values[5 + i * 8];
+            code = code + "\n#define PORT_PIN_" + pins_values[2 + i * 8] + "_DIRECTION_CHANGEABLE " + pins_values[6 + i * 8];
+            code = code + "\n#define PORT_PIN_" + pins_values[2 + i * 8] + "_LEVEL_VALUE " + pins_values[7 + i * 8];
+            code = code + "\n"
+
         }
     }
     code = code + "\n#endif /* PORT_CFG_H */";
@@ -718,13 +744,23 @@ function generate_cfg_code() {
 
 
 function generate_PBcfg_code() {
+    var date = getDate();
     var code = ""
+    code = code + "\n           /**********************************************************/";
+    code = code + "\n           /* -> This file is generated by online Configuration Tool */";
+    code = code + "\n           /* -> The Configuration Tool is developed by:             */";
+    code = code + "\n           /*    Ahmed Hassan                                        */";
+    code = code + "\n           /* -> The Configuration Tool can be found on this link:   */";
+    code = code + "\n           /*    autosar-drivers.github.io                           */";
+    code = code + "\n           /**********************************************************/";
+    code = code + "\n";
     code = code + "\n/********************************************************************************/";
     code = code + "\n/* Module:      Port                                                            */";
     code = code + "\n/* File Name:   Port_PBcfg.c                                                    */";
     code = code + "\n/* Description: Post Build Configuration Header file for TM4C123GH6PM           */";
     code = code + "\n/*              Microcontroller - Port Driver.                                  */";
     code = code + "\n/* Author:      Ahmed Hassan                                                    */";
+    code = code + "\n/* Created:     " + date + "                                                    */";
     code = code + "\n/********************************************************************************/";
     code = code + "\n";
     code = code + "\n#include \"Port.h\"";
@@ -760,43 +796,42 @@ function generate_PBcfg_code() {
 
         var number_of_pins = (pins_values.length) / 8;
 
-        for (var i=0; i<number_of_pins; i++) {
-                var name = pins_values[2+i*8];
-                if (name != "") {
-                    code = code + "\n   PortConf_" + name + ", ";
-                    code = code + "\n   PortConf_" + name + "_PORT_NUMBER, ";
-                    code = code + "\n   PortConf_" + name + "_PIN_NUMBER, ";
-                    code = code + "\n   PortConf_" + name + "_MODE, ";
-                    code = code + "\n   PortConf_" + name + "_MODE_CHANGEABLE, ";
-                    code = code + "\n   PortConf_" + name + "_DIRECTION, ";
-                    code = code + "\n   PortConf_" + name + "_DIRECTION_CHANGEABLE, ";
-                    code = code + "\n   PortConf_" + name + "_INITIAL_VALUE, ";
-                    code = code + "\n"        
-                }
+        for (var i = 0; i < number_of_pins; i++) {
+            var name = pins_values[2 + i * 8];
+            code = code + "\n   PORT_PIN_" + name + ", ";
+            code = code + "\n   PORT_PIN_" + name + "_PORT_NUMBER, ";
+            code = code + "\n   PORT_PIN_" + name + "_PIN_NUMBER, ";
+            code = code + "\n   PORT_PIN_" + name + "_INITIAL_MODE, ";
+            code = code + "\n   PORT_PIN_" + name + "_MODE_CHANGEABLE, ";
+            code = code + "\n   PORT_PIN_" + name + "_DIRECTION, ";
+            code = code + "\n   PORT_PIN_" + name + "_DIRECTION_CHANGEABLE, ";
+            code = code + "\n   PORT_PIN_" + name + "_LEVEL_VALUE, ";
+            code = code + "\n"
+
         }
     }
     code = code + "\n};";
     code = code + "\n";
 
     code = code + "\n/* PB structure used with Port_Init API for Modes */";
-    code = code + "\nconst Port_ConfigType Port_ConfigurationModes = {";
+    code = code + "\nconst Port_ConfiguredModesType Port_ConfiguredModes = {";
     code = code + "\n";
     if (modes_values.length > 0) {
 
-        var number_of_pins = (pins_values.length) / 8;
+        var number_of_modes = (modes_values.length) / 8;
 
-        for (var i=0; i<number_of_pins; i++) {
-            var name = modes_values[i*7];
-            if (name != "") {
-                code = code + "\n   PortConf_" + name + ", ";
-                code = code + "\n   PortConf_" + name + "_PULL_UP_ENABLE, ";
-                code = code + "\n   PortConf_" + name + "_PULL_DOWN_ENABLE, ";
-                code = code + "\n   PortConf_" + name + "_OPEN_DRAIN_ENABLE, ";
-                code = code + "\n   PortConf_" + name + "_GPIO_ENABLE, ";
-                code = code + "\n   PortConf_" + name + "_DIGITAL_ENABLE, ";
-                code = code + "\n   PortConf_" + name + "_ALT_FUNCTION, ";
-                code = code + "\n"    
-            }
+        for (var i = 0; i < number_of_modes; i++) {
+            var name = modes_values[i * 8];
+            code = code + "\n   PORT_PIN_MODE_" + name + ", ";
+            code = code + "\n   PORT_PIN_MODE_" + name + "_PULL_UP, ";
+            code = code + "\n   PORT_PIN_MODE_" + name + "_PULL_DOWN, ";
+            code = code + "\n   PORT_PIN_MODE_" + name + "_GPIO_ENABLE, ";
+            code = code + "\n   PORT_PIN_MODE_" + name + "_OPEN_DRAIN, ";
+            code = code + "\n   PORT_PIN_MODE_" + name + "_DIGITAL_ENABLE, ";
+            code = code + "\n   PORT_PIN_MODE_" + name + "_SLEW_RATE, ";
+            code = code + "\n   PORT_PIN_MODE_" + name + "_ALT_FUNCTION, ";
+            code = code + "\n"
+
         }
     }
     code = code + "\n};";
