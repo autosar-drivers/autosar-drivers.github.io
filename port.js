@@ -7,8 +7,8 @@ var pins_values = new Array();
 var modes_values = new Array();
 var optionalAPIs = new Array();
 
-pinHeads = ['', 'Port', 'Pin', 'Name', 'Mode Name', 'Mode Changeable', 'Direction', 'Direction Changeable', 'Initial Value'];
-modeHeads = ['', 'Name', 'Pull Up', 'Pull Down', 'GPIO Enable', 'Open Drain', 'Digital Enable', 'Slew Rate', 'Alternate Function'];
+pinHeads = ['', 'Port', 'Pin', 'Pin Symbol Name', 'Mode Symbol Name', 'Mode Changeable', 'Direction', 'Direction Changeable', 'Initial Value'];
+modeHeads = ['', 'Mode Symbol Name', 'Internal Resistor', 'GPIO Enable', 'Open Drain', 'Digital Enable', 'Analog Enable', 'Slew Rate', 'Alternate Function'];
 
 function init() {
     createPinsTable();
@@ -19,25 +19,6 @@ function init() {
     PBcfg_code = generate_PBcfg_code();
     document.getElementById("Cfg").textContent = cfg_code;
     document.getElementById("PBcfg").textContent = PBcfg_code;
-}
-
-function createTrueFalseSelection() {
-
-    var element = document.createElement("select");
-
-    var option1 = document.createElement("option");
-    var option2 = document.createElement("option");
-
-    option1.innerHTML = "True";
-    option2.innerHTML = "False";
-
-    option1.value = "TRUE";
-    option2.value = "FALSE";
-
-    element.add(option2, null);
-    element.add(option1, null);
-
-    return element;
 }
 
 
@@ -99,12 +80,12 @@ function addPin() {
             option5.innerHTML = "Port E";
             option6.innerHTML = "Port F";
 
-            option1.value = "PORT_PIN_PORT_A";
-            option2.value = "PORT_PIN_PORT_B";
-            option3.value = "PORT_PIN_PORT_C";
-            option4.value = "PORT_PIN_PORT_D";
-            option5.value = "PORT_PIN_PORT_E";
-            option6.value = "PORT_PIN_PORT_F";
+            option1.value = "PORT_PORTA";
+            option2.value = "PORT_PORTB";
+            option3.value = "PORT_PORTC";
+            option4.value = "PORT_PORTD";
+            option5.value = "PORT_PORTE";
+            option6.value = "PORT_PORTF";
 
             element.add(option1, null);
             element.add(option2, null);
@@ -138,14 +119,14 @@ function addPin() {
             option7.innerHTML = "Pin 6";
             option8.innerHTML = "Pin 7";
 
-            option1.value = "PORT_PIN_0";
-            option2.value = "PORT_PIN_1";
-            option3.value = "PORT_PIN_2";
-            option4.value = "PORT_PIN_3";
-            option5.value = "PORT_PIN_4";
-            option6.value = "PORT_PIN_5";
-            option7.value = "PORT_PIN_6";
-            option8.value = "PORT_PIN_7";
+            option1.value = "PORT_PIN0";
+            option2.value = "PORT_PIN1";
+            option3.value = "PORT_PIN2";
+            option4.value = "PORT_PIN3";
+            option5.value = "PORT_PIN4";
+            option6.value = "PORT_PIN5";
+            option7.value = "PORT_PIN6";
+            option8.value = "PORT_PIN7";
 
             element.add(option1, null);
             element.add(option2, null);
@@ -174,7 +155,19 @@ function addPin() {
             td.appendChild(element);
         }
         else if (c == 5 || c == 7) {
-            var element = createTrueFalseSelection();
+            var element = document.createElement("select");
+
+            var option1 = document.createElement("option");
+            var option2 = document.createElement("option");
+
+            option1.innerHTML = "True";
+            option2.innerHTML = "False";
+
+            option1.value = "TRUE";
+            option2.value = "FALSE";
+
+            element.add(option2, null);
+            element.add(option1, null);
             td.appendChild(element);
         }
 
@@ -206,8 +199,8 @@ function addPin() {
             option1.innerHTML = "High";
             option2.innerHTML = "Low";
 
-            option1.value = "PORT_PIN_LEVEL_HIGH";
-            option2.value = "PORT_PIN_LEVEL_LOW";
+            option1.value = "PORT_LEVEL_HIGH";
+            option2.value = "PORT_LEVEL_LOW";
 
             element.add(option1, null);
             element.add(option2, null);
@@ -238,276 +231,126 @@ function addMode() {
             element.setAttribute('value', '');
             td.appendChild(element);
         }
+        else if (c == 2) {
+            var element = document.createElement("select");
+
+            var option1 = document.createElement("option");
+            var option2 = document.createElement("option");
+            var option3 = document.createElement("option");
+
+            option1.innerHTML = "Off";
+            option2.innerHTML = "Pull up";
+            option3.innerHTML = "Pull Down";
+
+            option1.value = "PORT_INT_RES_OFF";
+            option2.value = "PORT_INT_RES_PULL_UP";
+            option3.value = "PORT_INT_RES_PULL_DOWN";
+
+            element.add(option1, null);
+            element.add(option2, null);
+            element.add(option3, null);
+
+            td.appendChild(element);
+        }
+        else if (c == 3) {
+            var element = document.createElement("select");
+
+            var option1 = document.createElement("option");
+            var option2 = document.createElement("option");
+
+            option1.innerHTML = "Disabled";
+            option2.innerHTML = "Enabled";
+
+            option1.value = "PORT_GPIO_DISABLED";
+            option2.value = "PORT_GPIO_ENABLED";
+
+            element.add(option1, null);
+            element.add(option2, null);
+
+            td.appendChild(element);
+        }
+        else if (c == 4) {
+            var element = document.createElement("select");
+
+            var option1 = document.createElement("option");
+            var option2 = document.createElement("option");
+
+            option1.innerHTML = "Disabled";
+            option2.innerHTML = "Enabled";
+
+            option1.value = "PORT_OPEN_DRAIN_DISABLED";
+            option2.value = "PORT_OPEN_DRAIN_ENABLED";
+
+            element.add(option1, null);
+            element.add(option2, null);
+
+            td.appendChild(element);
+        }
+
+        else if (c == 5) {
+            var element = document.createElement("select");
+
+            var option1 = document.createElement("option");
+            var option2 = document.createElement("option");
+
+            option1.innerHTML = "Disabled";
+            option2.innerHTML = "Enabled";
+
+            option1.value = "PORT_DIGITAL_DISABLED";
+            option2.value = "PORT_DIGITAL_ENABLED";
+
+            element.add(option1, null);
+            element.add(option2, null);
+
+            td.appendChild(element);
+        }
+        else if (c == 6) {
+            var element = document.createElement("select");
+
+            var option1 = document.createElement("option");
+            var option2 = document.createElement("option");
+
+            option1.innerHTML = "Disabled";
+            option2.innerHTML = "Enabled";
+
+            option1.value = "PORT_ANALOG_DISABLED";
+            option2.value = "PORT_ANALOG_ENABLED";
+
+            element.add(option1, null);
+            element.add(option2, null);
+
+            td.appendChild(element);
+        }
+        else if (c == 7) {
+            var element = document.createElement("select");
+
+            var option1 = document.createElement("option");
+            var option2 = document.createElement("option");
+
+            option1.innerHTML = "Disabled";
+            option2.innerHTML = "Enabled";
+
+            option1.value = "PORT_SLEW_RATE_DISABLED";
+            option2.value = "PORT_SLEW_RATE_ENABLED";
+
+            element.add(option1, null);
+            element.add(option2, null);
+
+            td.appendChild(element);
+        }
+
         else if (c == 8) {
             var element = document.createElement("select");
             var aternates = [
-                "ALT_DISABLED",
-                "ALT_AIN0",
-                "ALT_AIN1",
-                "ALT_AIN10",
-                "ALT_AIN11",
-                "ALT_AIN2",
-                "ALT_AIN3",
-                "ALT_AIN4",
-                "ALT_AIN5",
-                "ALT_AIN6",
-                "ALT_AIN7",
-                "ALT_AIN8",
-                "ALT_AIN9",
-                "ALT_C0_POS",
-                "ALT_C0_NEG",
-                "ALT_C0o",
-                "ALT_C1_POS",
-                "ALT_C1_NEG",
-                "ALT_C1o",
-                "ALT_CAN1Rx",
-                "ALT_CAN1Tx",
-                "ALT_I2C0SCL",
-                "ALT_I2C0SDA",
-                "ALT_I2C1SCL",
-                "ALT_I2C1SDA",
-                "ALT_I2C2SCL",
-                "ALT_I2C2SDA",
-                "ALT_I2C3SCL",
-                "ALT_I2C3SDA",
-                "ALT_IDX1",
-                "ALT_M0PWM0",
-                "ALT_M0PWM1",
-                "ALT_M0PWM2",
-                "ALT_M0PWM3",
-                "ALT_M0PWM4",
-                "ALT_M0PWM5",
-                "ALT_M1FAULT0",
-                "ALT_M1PWM0",
-                "ALT_M1PWM1",
-                "ALT_M1PWM4",
-                "ALT_M1PWM5",
-                "ALT_M1PWM6",
-                "ALT_M1PWM7",
-                "ALT_PhA1",
-                "ALT_PhB1",
-                "ALT_SSI0Clk",
-                "ALT_SSI0Fss",
-                "ALT_SSI0Rx",
-                "ALT_SSI0Tx",
-                "ALT_SSI2Clk",
-                "ALT_SSI2Fss",
-                "ALT_SSI2Rx",
-                "ALT_SSI2Tx",
-                "ALT_SSI3Clk",
-                "ALT_SSI3Fss",
-                "ALT_SSI3Rx",
-                "ALT_SSI3Tx",
-                "ALT_SWCLK",
-                "ALT_SWDIO",
-                "ALT_SWO",
-                "ALT_T2CCP1",
-                "ALT_T3CCP0",
-                "ALT_T3CCP1",
-                "ALT_T4CCP0",
-                "ALT_T4CCP1",
-                "ALT_T5CCP0",
-                "ALT_T5CCP1",
-                "ALT_TCK",
-                "ALT_TDI",
-                "ALT_TDO",
-                "ALT_TMS",
-                "ALT_TRCLK",
-                "ALT_TRD0",
-                "ALT_TRD1",
-                "ALT_U0Rx",
-                "ALT_U0Tx",
-                "ALT_U2Rx",
-                "ALT_U2Tx",
-                "ALT_U3Rx",
-                "ALT_U3Tx",
-                "ALT_U4Rx",
-                "ALT_U4Tx",
-                "ALT_U5Rx",
-                "ALT_U5Tx",
-                "ALT_U6Rx",
-                "ALT_U6Tx",
-                "ALT_U7Rx",
-                "ALT_U7Tx",
-                "ALT_USB0DM",
-                "ALT_USB0DP",
-                "ALT_USB0ID",
-                "ALT_USB0VBUS",
-                "ALT_WT0CCP0",
-                "ALT_WT0CCP1",
-                "ALT_WT1CCP0",
-                "ALT_WT1CCP1",
-                "ALT_WT2CCP0",
-                "ALT_WT2CCP1",
-                "ALT_WT3CCP0",
-                "ALT_WT3CCP1",
-                "ALT_WT4CCP0",
-                "ALT_WT4CCP1",
-                "ALT_WT5CCP0",
-                "ALT_WT5CCP1",
-                "ALT_IDX0",
-                "ALT_M0PWM6",
-                "ALT_M0PWM7",
-                "ALT_M1PWM2",
-                "ALT_M1PWM3",
-                "ALT_NMI",
-                "ALT_PhA0",
-                "ALT_PhB0",
-                "ALT_SSI1Clk",
-                "ALT_SSI1Fss",
-                "ALT_SSI1Rx",
-                "ALT_SSI1Tx",
-                "ALT_T0CCP0",
-                "ALT_T0CCP1",
-                "ALT_T1CCP0",
-                "ALT_T1CCP1",
-                "ALT_T2CCP0",
-                "ALT_U1CTS",
-                "ALT_U1RTS",
-                "ALT_U1Rx",
-                "ALT_U1Tx",
-                "ALT_USB0PFLT",
-                "ALT_CAN0Rx",
-                "ALT_CAN0Tx",
-                "ALT_M0FAULT0",
-                "ALT_USB0EPEN"
-
+                "ALT_DISABLED", "ALT_ADC", "ALT_COMP", "ALT_CAN", "ALT_I2C", "ALT_USB", "ALT_M0PWMx", "ALT_M1PWMx", "ALT_TxCCPx",
+                "ALT_SSI1", "ALT_SSI2", "ALT_SSI3", "ALT_UART", "ALT_U1CTS", "ALT_U1RTS", "ALT_U1Rx", "ALT_U1Tx", "ALT_CORE",
+                "ALT_NMI", "ALT_QEI", "ALT_JTAG"
             ];
-            var options = [
-                document.createElement("option"),
-                document.createElement("option"),
-                document.createElement("option"),
-                document.createElement("option"),
-                document.createElement("option"),
-                document.createElement("option"),
-                document.createElement("option"),
-                document.createElement("option"),
-                document.createElement("option"),
-                document.createElement("option"),
-                document.createElement("option"),
-                document.createElement("option"),
-                document.createElement("option"),
-                document.createElement("option"),
-                document.createElement("option"),
-                document.createElement("option"),
-                document.createElement("option"),
-                document.createElement("option"),
-                document.createElement("option"),
-                document.createElement("option"),
-                document.createElement("option"),
-                document.createElement("option"),
-                document.createElement("option"),
-                document.createElement("option"),
-                document.createElement("option"),
-                document.createElement("option"),
-                document.createElement("option"),
-                document.createElement("option"),
-                document.createElement("option"),
-                document.createElement("option"),
-                document.createElement("option"),
-                document.createElement("option"),
-                document.createElement("option"),
-                document.createElement("option"),
-                document.createElement("option"),
-                document.createElement("option"),
-                document.createElement("option"),
-                document.createElement("option"),
-                document.createElement("option"),
-                document.createElement("option"),
-                document.createElement("option"),
-                document.createElement("option"),
-                document.createElement("option"),
-                document.createElement("option"),
-                document.createElement("option"),
-                document.createElement("option"),
-                document.createElement("option"),
-                document.createElement("option"),
-                document.createElement("option"),
-                document.createElement("option"),
-                document.createElement("option"),
-                document.createElement("option"),
-                document.createElement("option"),
-                document.createElement("option"),
-                document.createElement("option"),
-                document.createElement("option"),
-                document.createElement("option"),
-                document.createElement("option"),
-                document.createElement("option"),
-                document.createElement("option"),
-                document.createElement("option"),
-                document.createElement("option"),
-                document.createElement("option"),
-                document.createElement("option"),
-                document.createElement("option"),
-                document.createElement("option"),
-                document.createElement("option"),
-                document.createElement("option"),
-                document.createElement("option"),
-                document.createElement("option"),
-                document.createElement("option"),
-                document.createElement("option"),
-                document.createElement("option"),
-                document.createElement("option"),
-                document.createElement("option"),
-                document.createElement("option"),
-                document.createElement("option"),
-                document.createElement("option"),
-                document.createElement("option"),
-                document.createElement("option"),
-                document.createElement("option"),
-                document.createElement("option"),
-                document.createElement("option"),
-                document.createElement("option"),
-                document.createElement("option"),
-                document.createElement("option"),
-                document.createElement("option"),
-                document.createElement("option"),
-                document.createElement("option"),
-                document.createElement("option"),
-                document.createElement("option"),
-                document.createElement("option"),
-                document.createElement("option"),
-                document.createElement("option"),
-                document.createElement("option"),
-                document.createElement("option"),
-                document.createElement("option"),
-                document.createElement("option"),
-                document.createElement("option"),
-                document.createElement("option"),
-                document.createElement("option"),
-                document.createElement("option"),
-                document.createElement("option"),
-                document.createElement("option"),
-                document.createElement("option"),
-                document.createElement("option"),
-                document.createElement("option"),
-                document.createElement("option"),
-                document.createElement("option"),
-                document.createElement("option"),
-                document.createElement("option"),
-                document.createElement("option"),
-                document.createElement("option"),
-                document.createElement("option"),
-                document.createElement("option"),
-                document.createElement("option"),
-                document.createElement("option"),
-                document.createElement("option"),
-                document.createElement("option"),
-                document.createElement("option"),
-                document.createElement("option"),
-                document.createElement("option"),
-                document.createElement("option"),
-                document.createElement("option"),
-                document.createElement("option"),
-                document.createElement("option"),
-                document.createElement("option"),
-                document.createElement("option"),
-                document.createElement("option"),
-                document.createElement("option"),
-            ]
-            for (var i = 0; i < 130; i++) {
-                options[i].innerHTML = aternates[i];
-                element.add(options[i], null);
+
+            for (var i = 0; i < 21; i++) {
+                var option = document.createElement("option");
+                option.innerHTML = aternates[i];
+                element.add(option, null);
             }
             td.appendChild(element);
         }
@@ -535,6 +378,7 @@ function submit() {
     var modesTable = document.getElementById('modesTable');
     var error_enable = document.getElementById('error_enable');
     var set_dir_enable = document.getElementById('set_dir_enable');
+    var set_mode_enable = document.getElementById('set_mode_enable');
     var version_enable = document.getElementById('version_enable');
     pins_values = [];
     modes_values = [];
@@ -554,8 +398,9 @@ function submit() {
         for (c = 1; c < modesTable.rows[row].cells.length; c++) {
             var element = modesTable.rows.item(row).cells[c];
             modes_values.push(element.childNodes[0].value);
-            if (element.childNodes[0].value == "" && pins_values.length != 0) {
-                alert("Pin name and Mode name cannot be embty!");
+            if (element.childNodes[0].value == "") {
+                if (pins_values.length != 0)
+                    alert("Pin name and Mode name cannot be embty!");
                 pins_values = [];
                 modes_values = [];
                 break
@@ -571,6 +416,12 @@ function submit() {
         optionalAPIs.push("STD_OFF");
     }
     if (set_dir_enable.checked == true) {
+        optionalAPIs.push("STD_ON");
+    }
+    else {
+        optionalAPIs.push("STD_OFF");
+    }
+    if (set_mode_enable.checked == true) {
         optionalAPIs.push("STD_ON");
     }
     else {
@@ -660,8 +511,6 @@ function generate_cfg_code() {
     code = code + "\n#ifndef PORT_CFG_H";
     code = code + "\n#define PORT_CFG_H";
     code = code + "\n";
-    code = code + "\n#include \"Port_Private.h\"";
-    code = code + "\n";
     code = code + "\n/* Module Version 1.0.0 */";
     code = code + "\n#define PORT_CFG_SW_MAJOR_VERSION              (1U)";
     code = code + "\n#define PORT_CFG_SW_MINOR_VERSION              (0U)";
@@ -672,44 +521,33 @@ function generate_cfg_code() {
     code = code + "\n#define PORT_CFG_AR_RELEASE_MINOR_VERSION      (0U)";
     code = code + "\n#define PORT_CFG_AR_RELEASE_PATCH_VERSION      (3U)";
     code = code + "\n";
-    code = code + "\n/* AUTOSAR Version checking between Port_Cfg.h and Port_Private.h files */";
-    code = code + "\n#if ((PORT_CFG_AR_RELEASE_MAJOR_VERSION != PORT_PRIVATE_AR_RELEASE_MAJOR_VERSION)\\";
-    code = code + "\n ||  (PORT_CFG_AR_RELEASE_MINOR_VERSION != PORT_PRIVATE_AR_RELEASE_MINOR_VERSION)\\";
-    code = code + "\n ||  (PORT_CFG_AR_RELEASE_PATCH_VERSION != PORT_PRIVATE_AR_RELEASE_PATCH_VERSION))";
-    code = code + "\n  #error \"The AR version of Port_Cfg.h does not match the expected version\"";
-    code = code + "\n#endif";
-    code = code + "\n";
-    code = code + "\n/* Software Version checking between Port_Cfg.h and Port_Private.h files */";
-    code = code + "\n#if ((PORT_CFG_SW_MAJOR_VERSION != PORT_PRIVATE_SW_MAJOR_VERSION)\\";
-    code = code + "\n ||  (PORT_CFG_SW_MINOR_VERSION != PORT_PRIVATE_SW_MINOR_VERSION)\\";
-    code = code + "\n ||  (PORT_CFG_SW_PATCH_VERSION != PORT_PRIVATE_SW_PATCH_VERSION))";
-    code = code + "\n  #error \"The SW version of Port_Cfg.h does not match the expected version\"";
-    code = code + "\n#endif";
-    code = code + "\n";
-    code = code + "\n/* Optional APIs */";
-    code = code + "\n";
-    code = code + "\n#define PORT_DEV_ERROR_DETECT      " + optionalAPIs[0];
-    code = code + "\n#define PORT_SET_PIN_DIRECTION_API " + optionalAPIs[1];
-    code = code + "\n#define PORT_VERSION_INFO_API      " + optionalAPIs[2];
-    code = code + "\n";
+    if (optionalAPIs.length > 0) {
+        code = code + "\n/* Optional APIs */";
+        code = code + "\n";
+        code = code + "\n#define PORT_DEV_ERROR_DETECT      " + optionalAPIs[0];
+        code = code + "\n#define PORT_SET_PIN_DIRECTION_API " + optionalAPIs[1];
+        code = code + "\n#define PORT_SET_PIN_MODE_API      " + optionalAPIs[2];
+        code = code + "\n#define PORT_VERSION_INFO_API      " + optionalAPIs[3];
+        code = code + "\n";
+    }
 
     if (modes_values.length > 0) {
         code = code + "\n/* Modes Defines */";
         code = code + "\n";
 
         var number_of_modes = (modes_values.length) / 8;
-        code = code + "\n#define PORT_CONFIGURED_MODES " + number_of_modes;
+        code = code + "\n#define PORT_NUMBER_OF_PORT_MODES " + number_of_modes;
         code = code + "\n";
 
         for (var i = 0; i < number_of_modes; i++) {
             code = code + "\n#define PORT_PIN_MODE_" + modes_values[i * 8] + " " + i;
-            code = code + "\n#define PORT_PIN_MODE_" + modes_values[i * 8] + "_PULL_UP " + modes_values[1 + i * 8];
-            code = code + "\n#define PORT_PIN_MODE_" + modes_values[i * 8] + "_PULL_DOWN " + modes_values[2 + i * 8];
-            code = code + "\n#define PORT_PIN_MODE_" + modes_values[i * 8] + "_GPIO_ENABLE " + modes_values[3 + i * 8];
-            code = code + "\n#define PORT_PIN_MODE_" + modes_values[i * 8] + "_OPEN_DRAIN " + modes_values[4 + i * 8];
-            code = code + "\n#define PORT_PIN_MODE_" + modes_values[i * 8] + "_DIGITAL_ENABLE " + modes_values[5 + i * 8];
+            code = code + "\n#define PORT_PIN_MODE_" + modes_values[i * 8] + "_INTERNAL_RESISTOR " + modes_values[1 + i * 8];
+            code = code + "\n#define PORT_PIN_MODE_" + modes_values[i * 8] + "_GPIO_ENABLE " + modes_values[2 + i * 8];
+            code = code + "\n#define PORT_PIN_MODE_" + modes_values[i * 8] + "_OPEN_DRAIN " + modes_values[3 + i * 8];
+            code = code + "\n#define PORT_PIN_MODE_" + modes_values[i * 8] + "_DIGITAL_ENABLE " + modes_values[4 + i * 8];
+            code = code + "\n#define PORT_PIN_MODE_" + modes_values[i * 8] + "_ANALOG_ENABLE " + modes_values[5 + i * 8];
             code = code + "\n#define PORT_PIN_MODE_" + modes_values[i * 8] + "_SLEW_RATE " + modes_values[6 + i * 8];
-            code = code + "\n#define PORT_PIN_MODE_" + modes_values[i * 8] + "_ALT_FUNCTION_NUM " + modes_values[7 + i * 8];
+            code = code + "\n#define PORT_PIN_MODE_" + modes_values[i * 8] + "_ALT_FUNC_NUM " + modes_values[7 + i * 8];
             code = code + "\n"
 
         }
@@ -722,7 +560,7 @@ function generate_cfg_code() {
         code = code + "\n";
 
         var number_of_pins = (pins_values.length) / 8;
-        code = code + "\n#define PORT_CONFIGURED_PINS " + number_of_pins;
+        code = code + "\n#define PORT_NUMBER_OF_PORT_PINS " + number_of_pins;
         code = code + "\n";
 
         for (var i = 0; i < number_of_pins; i++) {
@@ -823,13 +661,13 @@ function generate_PBcfg_code() {
         for (var i = 0; i < number_of_modes; i++) {
             var name = modes_values[i * 8];
             code = code + "\n   PORT_PIN_MODE_" + name + ", ";
-            code = code + "\n   PORT_PIN_MODE_" + name + "_PULL_UP, ";
-            code = code + "\n   PORT_PIN_MODE_" + name + "_PULL_DOWN, ";
+            code = code + "\n   PORT_PIN_MODE_" + name + "_INTERNAL_RESISTOR, ";
             code = code + "\n   PORT_PIN_MODE_" + name + "_GPIO_ENABLE, ";
             code = code + "\n   PORT_PIN_MODE_" + name + "_OPEN_DRAIN, ";
             code = code + "\n   PORT_PIN_MODE_" + name + "_DIGITAL_ENABLE, ";
+            code = code + "\n   PORT_PIN_MODE_" + name + "_ANALOG_ENABLE, ";
             code = code + "\n   PORT_PIN_MODE_" + name + "_SLEW_RATE, ";
-            code = code + "\n   PORT_PIN_MODE_" + name + "_ALT_FUNCTION, ";
+            code = code + "\n   PORT_PIN_MODE_" + name + "_ALT_FUNC_NUM, ";
             code = code + "\n"
 
         }
