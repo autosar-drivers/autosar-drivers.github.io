@@ -163,8 +163,8 @@ function addPin() {
             option1.innerHTML = "True";
             option2.innerHTML = "False";
 
-            option1.value = "TRUE";
-            option2.value = "FALSE";
+            option1.value = "STD_ON";
+            option2.value = "STD_OFF";
 
             element.add(option2, null);
             element.add(option1, null);
@@ -521,6 +521,104 @@ function generate_cfg_code() {
     code = code + "\n#define PORT_CFG_AR_RELEASE_MINOR_VERSION      (0U)";
     code = code + "\n#define PORT_CFG_AR_RELEASE_PATCH_VERSION      (3U)";
     code = code + "\n";
+
+
+    code = code + "\n/****************************************************************************/";
+    code = code + "\n/* The user should configure the used pins and its modes and optional APIs. */";
+    code = code + "\n/****************************************************************************/";
+    code = code + "\n";
+
+
+    code = code + "\n/*";
+    code = code + "\n";
+    code = code + "\n---> Modes Configuration";
+    code = code + "\n";
+    code = code + "\n    -> For example: symbolic name of the mode is X";
+    code = code + "\n";
+    code = code + "\n    -> PORT_PIN_MODE_X - The id of the mode ";
+    code = code + "\n        Possible values: (0, 1, 2, 3, .....).";
+    code = code + "\n";
+    code = code + "\n    -> PORT_PIN_MODE_X_INTERNAL_RESISTOR - Internal Resistor status ";
+    code = code + "\n        Possible values: (PORT_INT_RES_OFF, PORT_INT_RES_PULL_UP, PORT_INT_RES_PULL_DOWN).";
+    code = code + "\n";
+    code = code + "\n    -> PORT_PIN_MODE_X_GPIO_ENABLE - GPIO status";
+    code = code + "\n        Possible values: (PORT_GPIO_DISABLED, PORT_GPIO_ENABLED).";
+    code = code + "\n";
+    code = code + "\n    -> PORT_PIN_MODE_X_OPEN_DRAIN - Open Drain status";
+    code = code + "\n        Possible values: (PORT_OPEN_DRAIN_DISABLED, PORT_OPEN_DRAIN_ENABLED).";
+    code = code + "\n";
+    code = code + "\n    -> PORT_PIN_MODE_X_DIGITAL_ENABLE_ENABLE - Digital status";
+    code = code + "\n        Possible values: (PORT_DIGITAL_DISABLED, PORT_DIGITAL_ENABLED).";
+    code = code + "\n";
+    code = code + "\n    -> PORT_PIN_MODE_X_ANALOG_ENABLE - Analog status";
+    code = code + "\n        Possible values: (PORT_ANALOG_DISABLED, PORT_ANALOG_ENABLED).";
+    code = code + "\n";
+    code = code + "\n    -> PORT_PIN_MODE_X_SLEW_RATE - Slew Rate status";
+    code = code + "\n        Possible values: (PORT_SLEW_RATE_DISABLED, PORT_SLEW_RATE_ENABLED).";
+    code = code + "\n";
+    code = code + "\n    -> PORT_PIN_MODE_X_ALT_FUNC_NUM - Alternate Function Number";
+    code = code + "\n        Possible values: (ALT_DISABLED, ALT_ADC, ALT_COMP, ALT_CAN, ....)";
+    code = code + "\n";
+    code = code + "\n    -> PORT_NUMBER_OF_CONFIGURED_MODES - Number of configured modes";
+    code = code + "\n        Possible values: (0, 1, 2, 3, ......)";
+    code = code + "\n";
+    code = code + "\n";
+    code = code + "\n---> Pins Configuration";
+    code = code + "\n";
+    code = code + "\n    -> For example: symbolic name of the pin is Y";
+    code = code + "\n";
+    code = code + "\n    -> PORT_PIN_Y - The id of the pin ";
+    code = code + "\n        Possible values: (0, 1, 2, 3, .....).";
+    code = code + "\n";
+    code = code + "\n    -> PORT_PIN_Y_PORT_NUMBER - Port Number ";
+    code = code + "\n        Possible values: (PORT_PORTA, .... , PORT_PORTF).";
+    code = code + "\n";
+    code = code + "\n    -> PORT_PIN_Y_PIN_NUMBER - Pin Number";
+    code = code + "\n        Possible values: (PORT_PIN0, ....,  PORT_PIN7).";
+    code = code + "\n";
+    code = code + "\n    -> PORT_PIN_Y_INITIAL_MODE - Initial mode";
+    code = code + "\n        Possible values: Configured modes, eg : (PORT_PIN_MODE_X).";
+    code = code + "\n";
+    code = code + "\n    -> PORT_PIN_Y_MODE_CHANGEABLE - Mode Changeable status";
+    code = code + "\n        Possible values: (STD_OFF, STD_ON).";
+    code = code + "\n";
+    code = code + "\n    -> PORT_PIN_Y_DIRECTION - Direction";
+    code = code + "\n        Possible values: (PORT_PIN_OUT, PORT_PIN_IN).";
+    code = code + "\n";
+    code = code + "\n    -> PORT_PIN_Y_DIRECTION_CHANGEABLE - Direction Changeable status";
+    code = code + "\n        Possible values: (STD_OFF, STD_ON).";
+    code = code + "\n";
+    code = code + "\n    -> PORT_PIN_Y_LEVEL_VALUE - Initial Level Value";
+    code = code + "\n        Possible values: (PORT_LEVEL_LOW, PORT_LEVEL_HIGH)";
+    code = code + "\n";
+    code = code + "\n    -> PORT_NUMBER_OF_USED_PINS - Number of used pins";
+    code = code + "\n        Possible values: (0, 1, 2, 3, ......)";
+    code = code + "\n";
+    code = code + "\n";
+    code = code + "\n---> Optional APIs";
+    code = code + "\n";
+    code = code + "\n    -> PORT_DEV_ERROR_DETECT - Switches the Development Error Detection and Notification on or off ";
+    code = code + "\n        Possible values: (STD_ON, STD_OFF).";
+    code = code + "\n";
+    code = code + "\n    -> PORT_SET_PIN_DIRECTION_API - Pre-processor switch to enable / disable";
+    code = code + "\n       the use of the function Port_SetPinDirection() .";
+    code = code + "\n        Possible values: (STD_ON, STD_OFF).";
+    code = code + "\n";
+    code = code + "\n    -> PORT_SET_PIN_MODE_API - Pre-processor switch to enable / disable";
+    code = code + "\n       the use of the function Port_SetPinMode().";
+    code = code + "\n        Possible values: (STD_ON, STD_OFF).";
+    code = code + "\n";
+    code = code + "\n    -> PORT_VERSION_INFO_API - Pre-processor switch to enable / disable";
+    code = code + "\n       the API to read out the modules version information.";
+    code = code + "\n        Possible values: (STD_ON, STD_OFF).";
+    code = code + "\n";
+    code = code + "\n";
+    code = code + "\n*/";
+    code = code + "\n";
+    code = code + "\n";
+
+
+
     if (optionalAPIs.length > 0) {
         code = code + "\n/* Optional APIs */";
         code = code + "\n";
@@ -536,18 +634,18 @@ function generate_cfg_code() {
         code = code + "\n";
 
         var number_of_modes = (modes_values.length) / 8;
-        code = code + "\n#define PORT_NUMBER_OF_PORT_MODES " + number_of_modes;
+        code = code + "\n#define PORT_NUMBER_OF_CONFIGURED_MODES " + number_of_modes;
         code = code + "\n";
 
         for (var i = 0; i < number_of_modes; i++) {
-            code = code + "\n#define PORT_PIN_MODE_" + modes_values[i * 8] + " " + i;
-            code = code + "\n#define PORT_PIN_MODE_" + modes_values[i * 8] + "_INTERNAL_RESISTOR " + modes_values[1 + i * 8];
-            code = code + "\n#define PORT_PIN_MODE_" + modes_values[i * 8] + "_GPIO_ENABLE " + modes_values[2 + i * 8];
-            code = code + "\n#define PORT_PIN_MODE_" + modes_values[i * 8] + "_OPEN_DRAIN " + modes_values[3 + i * 8];
-            code = code + "\n#define PORT_PIN_MODE_" + modes_values[i * 8] + "_DIGITAL_ENABLE " + modes_values[4 + i * 8];
-            code = code + "\n#define PORT_PIN_MODE_" + modes_values[i * 8] + "_ANALOG_ENABLE " + modes_values[5 + i * 8];
-            code = code + "\n#define PORT_PIN_MODE_" + modes_values[i * 8] + "_SLEW_RATE " + modes_values[6 + i * 8];
-            code = code + "\n#define PORT_PIN_MODE_" + modes_values[i * 8] + "_ALT_FUNC_NUM " + modes_values[7 + i * 8];
+            code = code + "\n#define PORT_PIN_MODE_" + modes_values[i * 8] + "                      " + i;
+            code = code + "\n#define PORT_PIN_MODE_" + modes_values[i * 8] + "_INTERNAL_RESISTOR    " + modes_values[1 + i * 8];
+            code = code + "\n#define PORT_PIN_MODE_" + modes_values[i * 8] + "_GPIO_ENABLE          " + modes_values[2 + i * 8];
+            code = code + "\n#define PORT_PIN_MODE_" + modes_values[i * 8] + "_OPEN_DRAIN           " + modes_values[3 + i * 8];
+            code = code + "\n#define PORT_PIN_MODE_" + modes_values[i * 8] + "_DIGITAL_ENABLE       " + modes_values[4 + i * 8];
+            code = code + "\n#define PORT_PIN_MODE_" + modes_values[i * 8] + "_ANALOG_ENABLE        " + modes_values[5 + i * 8];
+            code = code + "\n#define PORT_PIN_MODE_" + modes_values[i * 8] + "_SLEW_RATE            " + modes_values[6 + i * 8];
+            code = code + "\n#define PORT_PIN_MODE_" + modes_values[i * 8] + "_ALT_FUNC_NUM         " + modes_values[7 + i * 8];
             code = code + "\n"
 
         }
@@ -560,18 +658,18 @@ function generate_cfg_code() {
         code = code + "\n";
 
         var number_of_pins = (pins_values.length) / 8;
-        code = code + "\n#define PORT_NUMBER_OF_PORT_PINS " + number_of_pins;
+        code = code + "\n#define PORT_NUMBER_OF_USED_PINS " + number_of_pins;
         code = code + "\n";
 
         for (var i = 0; i < number_of_pins; i++) {
-            code = code + "\n#define PORT_PIN_" + pins_values[2 + i * 8] + " " + i;
-            code = code + "\n#define PORT_PIN_" + pins_values[2 + i * 8] + "_PORT_NUMBER " + pins_values[0 + i * 8];
-            code = code + "\n#define PORT_PIN_" + pins_values[2 + i * 8] + "_PIN_NUMBER " + pins_values[1 + i * 8];
-            code = code + "\n#define PORT_PIN_" + pins_values[2 + i * 8] + "_INITIAL_MODE PORT_PIN_MODE_" + pins_values[3 + i * 8];
-            code = code + "\n#define PORT_PIN_" + pins_values[2 + i * 8] + "_MODE_CHANGEABLE " + pins_values[4 + i * 8];
-            code = code + "\n#define PORT_PIN_" + pins_values[2 + i * 8] + "_DIRECTION " + pins_values[5 + i * 8];
-            code = code + "\n#define PORT_PIN_" + pins_values[2 + i * 8] + "_DIRECTION_CHANGEABLE " + pins_values[6 + i * 8];
-            code = code + "\n#define PORT_PIN_" + pins_values[2 + i * 8] + "_LEVEL_VALUE " + pins_values[7 + i * 8];
+            code = code + "\n#define PORT_PIN_" + pins_values[2 + i * 8] + "                         " + i;
+            code = code + "\n#define PORT_PIN_" + pins_values[2 + i * 8] + "_PORT_NUMBER             " + pins_values[0 + i * 8];
+            code = code + "\n#define PORT_PIN_" + pins_values[2 + i * 8] + "_PIN_NUMBER              " + pins_values[1 + i * 8];
+            code = code + "\n#define PORT_PIN_" + pins_values[2 + i * 8] + "_INITIAL_MODE            PORT_PIN_MODE_" + pins_values[3 + i * 8];
+            code = code + "\n#define PORT_PIN_" + pins_values[2 + i * 8] + "_MODE_CHANGEABLE         " + pins_values[4 + i * 8];
+            code = code + "\n#define PORT_PIN_" + pins_values[2 + i * 8] + "_DIRECTION               " + pins_values[5 + i * 8];
+            code = code + "\n#define PORT_PIN_" + pins_values[2 + i * 8] + "_DIRECTION_CHANGEABLE    " + pins_values[6 + i * 8];
+            code = code + "\n#define PORT_PIN_" + pins_values[2 + i * 8] + "_LEVEL_VALUE             " + pins_values[7 + i * 8];
             code = code + "\n"
 
         }
@@ -652,7 +750,7 @@ function generate_PBcfg_code() {
     code = code + "\n";
 
     code = code + "\n/* PB structure used with Port_Init API for Modes */";
-    code = code + "\nconst Port_ConfiguredModesType Port_ConfiguredModes = {";
+    code = code + "\nconst Port_ConfiguredModesType Port_ConfigurationModes = {";
     code = code + "\n";
     if (modes_values.length > 0) {
 
